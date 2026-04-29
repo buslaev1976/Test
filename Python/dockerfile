@@ -2,7 +2,7 @@
 FROM scratch
 
 # Добавляем минимальную Ubuntu
-ADD ubuntu-24.04-minimal-cloudimg-amd64-root.tar.xz /
+ADD https://cloud-images.ubuntu.com/minimal/releases/noble/release/ubuntu-24.04-minimal-cloudimg-amd64-root.tar.xz /
 
 # настраиваем окружение
 ENV DEBIAN_FRONTEND=noninteractive
