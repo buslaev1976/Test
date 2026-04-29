@@ -1,0 +1,39 @@
+# делаем образ контейнера с нуля
+FROM scratch
+
+# Добавляем минимальную Ubuntu
+ADD ubuntu-24.04-minimal-cloudimg-amd64-root.tar.xz /
+
+# настраиваем окружение
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+# Устанавливаем MySQL
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        mysql-server && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Создаём необходимые директории
+RUN mkdir -p /var/run/mysqld && \
+    mkdir -p /var/lib/mysql && \
+    mkdir -p /var/log/mysql && \
+    chown -R mysql:mysql /var/run/mysqld && \
+    chown -R mysql:mysql /var/lib/mysql && \
+    chown -R mysql:mysql /var/log/mysql
+
+# Копируем конфигурацию
+COPY my.cnf /etc/mysql/my.cnf
+
+# Копируем скрипт инициализации
+COPY init.sql /docker-entrypoint-initdb.d/
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Открываем порт MySQL
+EXPOSE 3306
+
+# Используем entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
+

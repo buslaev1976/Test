@@ -1,0 +1,43 @@
+services:
+  nginx:
+    image: localhost:5000/myapp-nginx:latest
+    container_name: my-site
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    depends_on:
+      - python
+    restart: unless-stopped
+
+  python:
+    image: localhost:5000/myapp-python:latest
+    container_name: my-python
+    environment:
+      - MYSQL_HOST=my-mysql
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=guestbook
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+  mysql:
+    image: localhost:5000/myapp-mysql:latest
+    container_name: my-mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:

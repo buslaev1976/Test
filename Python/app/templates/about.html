@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}О нас{% endblock %}
+
+{% block content %}
+    <h1>📖 О проекте</h1>
+    <p>Этот сайт создан с использованием:</p>
+    <ul>
+        <li>🐍 Python 3</li>
+        <li>🌶️ Flask (микро-фреймворк)</li>
+        <li>🐳 Docker (контейнеризация)</li>
+        <li>🔧 Nginx (reverse proxy)</li>
+    </ul>
+    
+    <h2>Контейнеры</h2>
+    <p>Сайт работает в контейнере: <code>{{ container_name }}</code></p>
+    
+    <h2>Структура проекта</h2>
+    <pre>
+C:\DocerApps\
+├── Nginx\
+│   └── conf.d\
+│       └── default.conf
+└── Python\
+    └── app\
+        ├── app.py
+        ├── templates\
+        └── static\
+    </pre>
+{% endblock %}

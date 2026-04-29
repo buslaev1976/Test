@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Гостевая книга{% endblock %}
+
+{% block content %}
+    <h1>📝 Гостевая книга</h1>
+    
+    <form method="POST" action="/guestbook">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <textarea name="message" placeholder="Ваше сообщение" rows="3" required></textarea>
+        <button type="submit">✉️ Отправить</button>
+    </form>
+    
+    <h2>Сообщения ({{ messages|length }})</h2>
+    
+    {% if messages %}
+        {% for msg in messages|reverse %}
+            <div class="message">
+                <strong>{{ msg.name }}</strong>
+                <span class="date">{{ msg.date }}</span>
+                <p>{{ msg.message }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Пока нет сообщений. Будьте первым!</p>
+    {% endif %}
+{% endblock %}

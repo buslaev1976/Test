@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+nav {
+    background: #333;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    padding: 5px 10px;
+}
+
+nav a:hover {
+    background: #555;
+    border-radius: 3px;
+}
+
+main {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 12px;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.message {
+    border-left: 3px solid #007bff;
+    margin: 15px 0;
+    padding: 10px;
+    background: #f9f9f9;
+}
+
+.message .date {
+    float: right;
+    color: #999;
+    font-size: 12px;
+}
+
+code {
+    background: #f4f4f4;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+pre {
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.info {
+    background: #e3f2fd;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.api {
+    background: #f1f8e9;
+    padding: 15px;
+    border-radius: 5px;
+}

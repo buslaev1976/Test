@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <h1>Добро пожаловать!</h1>
+    <p>Это мой первый сайт на Flask, работающий в Docker!</p>
+    <p>🔢 Вы посетили эту страницу <strong>{{ visits }}</strong> раз(а).</p>
+    
+    <div class="info">
+        <h2>🚀 Что тут есть?</h2>
+        <ul>
+            <li><a href="/guestbook">Гостевая книга</a> — оставьте сообщение!</li>
+            <li><a href="/about">О нас</a> — узнайте больше о проекте</li>
+        </ul>
+    </div>
+
+    <div class="api">
+        <h3>📡 API эндпоинты:</h3>
+        <ul>
+            <li><code>/api/status</code> — статус сервера</li>
+            <li><code>/api/messages</code> — все сообщения (JSON)</li>
+        </ul>
+    </div>
+{% endblock %}

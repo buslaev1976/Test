@@ -1,0 +1,49 @@
+# делаем образ контейнера с нуля
+FROM scratch
+
+# Добавляем минимальную Ubuntu
+ADD ubuntu-24.04-minimal-cloudimg-amd64-root.tar.xz /
+
+# настраиваем окружение
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+# Создаём пользователя и директории ДО установки пакетов
+RUN adduser --system --no-create-home --group python && \
+    mkdir -p /app && \
+    chown -R python:python /app
+
+# Устанавливаем Python и Flask, после установки чистим кэш, удаляем ненужные файлы
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        python3 \
+        python3-pip \
+        python3-venv \
+        iputils-ping && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Создаём виртуальное окружение (от root, в /opt/venv)
+RUN python3 -m venv /opt/venv
+
+# Устанавливаем пакеты в виртуальное окружение
+RUN /opt/venv/bin/pip install --no-cache-dir flask mysql-connector-python
+WORKDIR /app
+
+# Копируем всё приложение (папка app/)
+COPY app/ .
+
+# Даём ping возможность работать от любого пользователя
+RUN chmod u+s /bin/ping
+
+# Даём права пользователю python на venv
+RUN chown -R python:python /opt/venv
+
+# веб-интерфейс
+EXPOSE 5000
+
+# меняем пользователя на python
+USER python
+
+# Запускаем из виртуального окружения
+CMD ["/opt/venv/bin/python3", "app.py"]
